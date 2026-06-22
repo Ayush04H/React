@@ -142,7 +142,7 @@ function getBook(id) {
 }
 
 // Destructing with object
-const books = getBook(2);
+const books = getBook(1);
 const allbooks = getBooks();
 //console.log(books);
 // const title = books.title;
@@ -159,6 +159,18 @@ const primaryGenre = genres[0];
 const seondaryGenre = genres[1];
 console.log(primaryGenre, seondaryGenre);
 
-//using Structirng
-const [primary, secondary] = genres;
-console.log(primary, secondary);
+//using Rest Operator
+const [primary, secondary, ...othergenres] = genres;
+console.log(primary, secondary, othergenres);
+
+//using Spread Operator
+const newgenres = [...genres, "epic"];
+console.log(newgenres);
+
+//Objects with Spread - allows to add new and update the existing once
+const udpatebook = {
+  ...books,
+  movirePublicationDate: "2001",
+  pages: 1520,
+};
+console.log(udpatebook);
