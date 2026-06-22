@@ -175,7 +175,7 @@ const udpatebook = {
 };
 console.log(udpatebook);
 
-//Lietrals
+//Literals
 const summary = `
 a book 
 is a book ${title}
