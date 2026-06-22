@@ -174,3 +174,10 @@ const udpatebook = {
   pages: 1520,
 };
 console.log(udpatebook);
+
+//Lietrals
+const summary = `
+a book 
+is a book ${title}
+${publicationDate.split("-")[0]} ${publicationDate.split("-")[1]}`;
+console.log(summary);
