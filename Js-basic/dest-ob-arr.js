@@ -265,4 +265,84 @@ const uniqueNumbers = duplicates.filter((num, index, arr) => {
 console.log(uniqueNumbers);
 // Output: [1, 2, 3, 4, 5]
 
-Q;
+// Reduce
+/*
+1. Adding Numbers TogetherGoal: Find the total sum of an array of numbers.Starting Point: 0 
+*/
+const scores = [1, 2, 3, 4];
+const totalScore = scores.reduce((sum, currentScore) => {
+  return sum + currentScore;
+}, 0);
+
+/*
+2. Multiplying All NumbersGoal: Multiply all numbers in a list together.Starting Point: 1 (because multiplying by 0 results in 0)
+*/
+const dimensions = [1, 2, 3, 4];
+
+const volume = dimensions.reduce((product, currentNum) => {
+  return product * currentNum;
+}, 1);
+
+console.log(totalScore); // Output: 100
+console.log(volume); // Output: 30
+
+/*
+3. Counting Total Items in a Shopping CartGoal: Sum up a specific property inside an array of objects.Starting Point: 0
+*/
+const cart = [
+  { item: "Book", quantity: 2 },
+  { item: "Shirt", quantity: 1 },
+  { item: "Shoes", quantity: 3 },
+];
+
+const totalItems = cart.reduce((total, currentProduct) => {
+  return total + currentProduct.quantity;
+}, 0);
+
+console.log(totalItems); // Output: 6
+
+/*
+4. Gluing Words Into a SentenceGoal: Connect an array of strings into one single phrase.Starting Point: "" (an empty string)
+ */
+const words_2 = ["JavaScript", "is", "a", "lot", "of", "fun"];
+
+const sentence = words_2.reduce((phrase, currentWord) => {
+  return phrase + " " + currentWord;
+}, "");
+
+console.log(sentence.trim()); // Output: "JavaScript is a lot of fun"
+
+/*
+5. Finding the Maximum ValueGoal: Look through a list of numbers and find the biggest one.Starting Point: The first number in the array.
+*/
+const temperatures = [1, 2, 3, 4, 85, 6, 9, 87, 100];
+
+const highestTemp = temperatures.reduce((highest, currentTemp) => {
+  if (currentTemp > highest) {
+    return currentTemp; // This becomes the new highest
+  } else {
+    return highest; // Keep the old highest
+  }
+}, temperatures[0]);
+
+console.log(highestTemp); // Output: 91
+
+//Add a Book object ot array using seperator
+const newbook = {
+  id: 6,
+  title: "ABC",
+  author: "JKR",
+};
+
+const booksAfterAdd = [...allbooks, newbook];
+console.log(booksAfterAdd);
+
+// Delete a Book using filet and id
+const booksAfterDelete = booksAfterAdd.filter((book) => book.id != 3);
+console.log(booksAfterDelete);
+
+//Updae a book in the array
+const bookAfterUdpate = booksAfterDelete.map((book) =>
+  book.id == 1 ? { ...book, pages: 1210 } : book,
+);
+console.log(bookAfterUdpate);
