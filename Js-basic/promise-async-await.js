@@ -21,3 +21,28 @@ myPromise
     // Invoked unconditionally once the promise settles (fulfilled or rejected)
     console.log("Cleanup operations executed here.");
   });
+
+//Example 2
+const checkServerStatus = new Promise((resolve, reject) => {
+  const isOnline = true;
+  if (isOnline) {
+    resolve("Server is active.");
+  } else {
+    reject("Server is offline.");
+  }
+});
+
+checkServerStatus
+  .then((data) => console.log(data))
+  .catch((err) => console.error(err));
+// Output: "Server is active."
+
+//Example 3
+const waitForTimer = new Promise((resolve) => {
+  setTimeout(() => {
+    resolve("Timer successfully finished!");
+  }, 5000);
+});
+
+waitForTimer.then((message) => console.log(message));
+// Output (after 1 second): "Timer successfully finished!"
