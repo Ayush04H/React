@@ -55,3 +55,31 @@ const fixedPromise = new Promise((resolve, reject) => {
 
 fixedPromise.then((result) => console.log(result));
 // Output: "First resolution locked."
+
+//Example 5
+Promise.resolve(10) // Instantly creates a resolved promise containing the value 10
+  .then((num) => num * 5) // Returns 50 to the next promise
+  .then((num) => num + 20) // Returns 70 to the next promise
+  .then((finalResult) => console.log(`Final value: ${finalResult}`));
+// Output: "Final value: 70"
+
+//Example 6
+const fetchRawUsername = Promise.resolve("   john_doe_dev   ");
+
+fetchRawUsername
+  .then((rawText) => rawText.trim())
+  .then((trimmedText) => trimmedText.toUpperCase())
+  .then((formattedName) => console.log(`User: ${formattedName}`));
+// Output: "User: JOHN_DOE_DEV"
+
+// Example 7
+const dynamicCrasher = new Promise((resolve, reject) => {
+  // Accessing a completely non-existent property crashes synchronously
+  const result = undefinedObject.property;
+  resolve(result);
+});
+
+dynamicCrasher
+  .then((res) => console.log(res))
+  .catch((error) => console.log(`Error intercepted cleanly: ${error.message}`));
+// Output: "Error intercepted cleanly: undefinedObject is not defined"
