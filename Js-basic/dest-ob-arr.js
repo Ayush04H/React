@@ -142,8 +142,7 @@ function getBook(id) {
 }
 
 // Destructing with object
-const books = getBook(1);
-const allbooks = getBooks();
+const books = getBook(2);
 //console.log(books);
 // const title = books.title;
 // const author = books.author;
@@ -181,3 +180,89 @@ a book
 is a book ${title}
 ${publicationDate.split("-")[0]} ${publicationDate.split("-")[1]}`;
 console.log(summary);
+
+// Short Circuting and Logical Operators
+
+//&&
+console.log(true && "Some String");
+console.log(false && "Some String");
+console.log(hasMovieAdaptation && "This Book has a movie");
+
+//||
+console.log(books.reviews.librarything.reviewsCount);
+console.log(books.reviews.librarything.reviewsCount || "No Data");
+console.log(books.reviews.librarything.reviewsCount ?? "No Data");
+
+function getTotalReviewCount(book) {
+  const goodreads = book.reviews?.goodreads?.reviewsCount ?? 0;
+
+  const librarything = book.reviews?.librarything?.reviewsCount ?? 0;
+
+  return goodreads + librarything;
+}
+console.log(getTotalReviewCount(books));
+
+//Map
+
+const allbooks = getBooks();
+const x = [1, 2, 3, 4, 5].map((ele) => ele * 2);
+console.log(x);
+
+const titles = allbooks.map((ele) => ele.title);
+console.log(titles);
+
+const essentialdata = allbooks.map((ele) => {
+  return {
+    title: ele.title,
+    author: ele.author,
+    reviewsCount: getTotalReviewCount(books),
+  };
+});
+console.log(essentialdata);
+
+// Array Second last data
+const arr = [1, 2, 3, 4, 5];
+const length_arr = arr.length;
+console.log(arr[length_arr - 2]);
+
+const arr_rev = [];
+for (let i = length_arr - 1; i >= 0; i--) {
+  arr_rev.push(arr[i]);
+}
+console.log(arr_rev);
+
+// Filter
+const nums = [1, 2, 3, 4, 5, 6, 7, 8];
+const evens = nums.filter((num) => num % 2 == 0);
+console.log(evens);
+
+const words = ["apple", "banana", "kiwi", "pineapple", "fig"];
+const longWords = words.filter((word) => word.length > 5);
+console.log(longWords);
+
+const tasks = [
+  { id: 1, title: "Clean room", completed: true },
+  { id: 2, title: "Study code", completed: false },
+  { id: 3, title: "Buy groceries", completed: true },
+];
+const completedTasks = tasks.filter((task) => task.completed);
+console.log(completedTasks);
+// Output: [{ id: 1, ... }, { id: 3, ... }]
+
+const items = ["A", "B", "C", "D", "E", "F"];
+// Keep items at odd indices (1, 3, 5)
+const alternateItems = items.filter((item, index) => index % 2 !== 0);
+console.log(alternateItems);
+// Output: ["B", "D", "F"]
+
+const duplicates = [1, 2, 3, 4, 5, 1, 2, 3, 4, 5];
+console.log(duplicates.indexOf(3));
+
+// indexOf returns the FIRST index where a value appears
+const uniqueNumbers = duplicates.filter((num, index, arr) => {
+  return arr.indexOf(num) === index;
+});
+console.log(uniqueNumbers);
+// Output: [1, 2, 3, 4, 5]
+
+Q;
