@@ -46,6 +46,7 @@ const waitForTimer = new Promise((resolve) => {
 
 waitForTimer.then((message) => console.log(message));
 // Output (after 1 second): "Timer successfully finished!"
+//Example 4
 const fixedPromise = new Promise((resolve, reject) => {
   resolve("First resolution locked.");
   resolve("Second resolution attempted."); // Ignored
