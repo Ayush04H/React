@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import "./index.css";
 
 const pizzaData = [
   {
@@ -47,27 +48,81 @@ const pizzaData = [
 ];
 
 function App() {
-  const x = "ABC here";
   return (
-    <div>
-      <h1>Hello React!!! ${x}</h1>
-      <Pizza />
-      <Pizza />
-      <Pizza />
+    <div className="container">
+      <Header />
+      <Menu />
+      <Footer />
     </div>
   );
 }
 
-// New Layer
-function Pizza() {
+const Header = () => {
+  //const style = { color: "red", fontSize: "48px", textTransform: "uppercase" };
   return (
     <div>
-      <img src="pizzas/spinaci.jpg" alt="Pizza Spinaci"></img>
-      <h2>{pizzaData[2].name}</h2>
-      <p>{pizzaData[2].ingredients}</p>
+      <header className="header">
+        <h1>Fast React Pizza Co</h1>
+      </header>
+    </div>
+  );
+};
+
+function Menu() {
+  return (
+    <main className="menu">
+      <h2>Our Menu</h2>
+      {/* <Pizza
+        name="Pizza Spinaci"
+        ingredients="Tomato, mozarella, spinach, and ricotta cheese"
+        photoName="pizzas/spinaci.jpg"
+        price={12}
+      /> */}
+      {pizzaData.map((pizza) => (
+        <Pizza key={pizza.name} pizzaObj={pizza} />
+      ))}
+    </main>
+  );
+}
+
+function Pizza({ pizzaObj }) {
+  console.log(pizzaObj);
+  return (
+    // <div>
+    //   <img src={props.photoName} alt={props.name}></img>
+    //   <h3>{props.name}</h3>
+    //   <p>{props.ingredients}</p>
+    // </div>
+    <div className="pizza">
+      <img src={pizzaObj.photoName} alt={pizzaObj.name}></img>
+      <div>
+        <h3>{pizzaObj.name}</h3>
+        <p>{pizzaObj.ingredients}</p>
+        <span>${pizzaObj.price}</span>
+      </div>
     </div>
   );
 }
+
+const Footer = () => {
+  const hour = new Date().getHours();
+  console.log(hour);
+  const openHour = 12;
+  const closeHour = 22;
+  const isOpen = hour >= openHour && hour <= closeHour;
+  console.log(isOpen);
+  //   if (hour >= openHour && hour <= closeHour) alert("We're currently open");
+  //   else alert("Sorry we're closed");
+  return (
+    <div>
+      <footer className="footer">
+        It's {new Date().toLocaleTimeString()} We're currently Open!
+      </footer>
+    </div>
+  );
+};
+
+// New Layer
 
 //Strict mode renders all the compoenents twice in order to found bugs, and also used to check whether we are usign outdated react APIs
 const root = ReactDOM.createRoot(document.getElementById("root"));
