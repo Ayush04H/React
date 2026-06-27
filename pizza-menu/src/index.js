@@ -78,37 +78,40 @@ function Menu() {
         photoName="pizzas/spinaci.jpg"
         price={12}
       /> */}
-      {pizzaData.map((pizza) => (
-        <Pizza key={pizza.name} pizzaObj={pizza} />
-      ))}
+      <ul className="pizzas">
+        {pizzaData.map((pizza) => (
+          <Pizza key={pizza.name} pizzaObj={pizza} />
+        ))}
+      </ul>
     </main>
   );
 }
 
 function Pizza({ pizzaObj }) {
   console.log(pizzaObj);
+  if (pizzaObj.soldOut) return null;
   return (
     // <div>
     //   <img src={props.photoName} alt={props.name}></img>
     //   <h3>{props.name}</h3>
     //   <p>{props.ingredients}</p>
     // </div>
-    <div className="pizza">
+    <li className="pizza">
       <img src={pizzaObj.photoName} alt={pizzaObj.name}></img>
       <div>
         <h3>{pizzaObj.name}</h3>
         <p>{pizzaObj.ingredients}</p>
         <span>${pizzaObj.price}</span>
       </div>
-    </div>
+    </li>
   );
 }
 
 const Footer = () => {
   const hour = new Date().getHours();
   console.log(hour);
-  const openHour = 12;
-  const closeHour = 22;
+  const openHour = 9;
+  const closeHour = 21;
   const isOpen = hour >= openHour && hour <= closeHour;
   console.log(isOpen);
   //   if (hour >= openHour && hour <= closeHour) alert("We're currently open");
@@ -116,8 +119,36 @@ const Footer = () => {
   return (
     <div>
       <footer className="footer">
-        It's {new Date().toLocaleTimeString()} We're currently Open!
+        {/* {isOpen && (
+          <div className="order">
+            <p>
+              It's {new Date().toLocaleTimeString()} We're currently Open , We
+              are Open until {closeHour}!
+            </p>
+            <button className="btn">Order</button>
+          </div>
+        )}{" "} */}
+        {isOpen ? (
+          <Order openHour={openHour} closeHour={closeHour} />
+        ) : (
+          <p>
+            Currently we are Closed !! We are Happy to have you between{" "}
+            {openHour} && {closeHour}
+          </p>
+        )}
       </footer>
+    </div>
+  );
+};
+
+const Order = ({ closeHour }) => {
+  return (
+    <div className="Order">
+      <p>
+        It's {new Date().toLocaleTimeString()} We're currently Open , We are
+        Open until {closeHour}!
+      </p>
+      <button className="btn">Order</button>
     </div>
   );
 };
