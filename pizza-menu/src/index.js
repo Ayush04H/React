@@ -72,6 +72,11 @@ function Menu() {
   return (
     <main className="menu">
       <h2>Our Menu</h2>
+
+      <p>
+        Authentic Italian Cusine , 6 Creative disjes to choose from . All from
+        our stone oven,all organic , all delicious
+      </p>
       {/* <Pizza
         name="Pizza Spinaci"
         ingredients="Tomato, mozarella, spinach, and ricotta cheese"
@@ -89,19 +94,30 @@ function Menu() {
 
 function Pizza({ pizzaObj }) {
   console.log(pizzaObj);
-  if (pizzaObj.soldOut) return null;
+  // if (pizzaObj.soldOut)
+  //   return (
+  //     <li className="pizza sold-out">
+  //       <img src={pizzaObj.photoName} alt={pizzaObj.name}></img>
+  //       <div>
+  //         <h3>{pizzaObj.name}</h3>
+  //         <p>{pizzaObj.ingredients}</p>
+  //         <span>SOLD OUT</span>
+  //       </div>
+  //     </li>
+  //   );
+
   return (
     // <div>
     //   <img src={props.photoName} alt={props.name}></img>
     //   <h3>{props.name}</h3>
     //   <p>{props.ingredients}</p>
     // </div>
-    <li className="pizza">
+    <li className={`pizza ${pizzaObj.soldOut ? "sold-out" : ""}`}>
       <img src={pizzaObj.photoName} alt={pizzaObj.name}></img>
       <div>
         <h3>{pizzaObj.name}</h3>
         <p>{pizzaObj.ingredients}</p>
-        <span>${pizzaObj.price}</span>
+        <span>{pizzaObj.soldOut ? "SOLD OUT" : pizzaObj.price}</span>
       </div>
     </li>
   );
