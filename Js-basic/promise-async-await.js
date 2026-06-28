@@ -83,3 +83,31 @@ dynamicCrasher
   .then((res) => console.log(res))
   .catch((error) => console.log(`Error intercepted cleanly: ${error.message}`));
 // Output: "Error intercepted cleanly: undefinedObject is not defined"
+
+//console.log(fetch("https://jsonplaceholder.typicode.com/todos/1"));
+fetch("https://jsonplaceholder.typicode.com/todos/1")
+  .then((res) => res.json())
+  .then((data) => console.log(data));
+
+// Async Await
+async function getTodoItem() {
+  try {
+    // 1. Pause execution until the network request finishes
+    const response = await fetch(
+      "https://jsonplaceholder.typicode.com/todos/1",
+    );
+
+    // 2. Pause execution until the stream converts to a JSON object
+    const todoData = await response.json();
+
+    // 3. Output the final data
+    console.log(todoData);
+  } catch (error) {
+    // Replaces the old .catch() chain method
+    console.error("Network or parsing error occurred:", error);
+  }
+}
+
+// Invoke the asynchronous execution block
+console.log(getTodoItem());
+console.log("res wait");
