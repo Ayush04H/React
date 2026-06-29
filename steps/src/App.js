@@ -1,3 +1,4 @@
+import { useState } from "react";
 import "./index.css";
 const messages = [
   "Learn React ⚛️",
@@ -5,14 +6,16 @@ const messages = [
   "Invest your new income 🤑",
 ];
 function App() {
-  const step = 3;
+  const [step, setstep] = useState(1);
 
   function handlerPrevious() {
-    alert("Previous");
+    //alert("Previous");
+    setstep(step > 1 ? step - 1 : step);
   }
 
   function handlerNext() {
-    alert("Next");
+    //alert("Next");
+    setstep(step < 3 ? step + 1 : step);
   }
   return (
     <div className="steps">
