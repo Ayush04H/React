@@ -1,3 +1,4 @@
+import { useState } from "react";
 import "./App.css";
 const initialItems = [
   { id: 1, description: "Passports", quantity: 2, packed: false },
@@ -45,10 +46,38 @@ function Logo() {
 }
 
 function Form() {
+  //Piece of State Step 1
+  //Use element in the component
+  //Update teh state variable
+  const [description, setDescription] = useState("");
+  const [quantity, setQuantity] = useState(5);
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    if (!description) return;
+    const newItem = { description, quantity, packed: false, id: Date.now() };
+  }
   return (
-    <div className="add-form">
+    <form className="add-form" onSubmit={handleSubmit}>
       <h3>What Do You need for the Trip</h3>
-    </div>
+      <select
+        value={quantity}
+        onChange={(e) => setQuantity(Number(e.target.value))}
+      >
+        {Array.from({ length: 20 }, (_, i) => i + 1).map((num) => (
+          <option value={num} key={num}>
+            {num}
+          </option>
+        ))}
+      </select>
+      <input
+        type="text"
+        placeholder="Item..."
+        value={description}
+        onChange={(e) => setDescription(e.target.value)}
+      ></input>
+      <button>Add</button>
+    </form>
   );
 }
 function PackingList() {
@@ -56,7 +85,7 @@ function PackingList() {
     <div className="list">
       <ul>
         {initialItems.map((item) => (
-          <Item item={item} />
+          <Item item={item} key={item.id} />
         ))}
       </ul>
     </div>

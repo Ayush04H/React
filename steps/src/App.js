@@ -11,16 +11,16 @@ function App() {
 
   function handlerPrevious() {
     //alert("Previous");
-    setstep(step > 1 ? step - 1 : step);
+    setstep((s) => (s > 1 ? s - 1 : s));
   }
 
   function handlerNext() {
     //alert("Next");
-    setstep(step < 3 ? step + 1 : step);
+    setstep((s) => (s < 3 ? s + 1 : s));
   }
 
   function close() {
-    setisOpen(!isOpen);
+    setisOpen((is) => !is);
   }
   return (
     <>
