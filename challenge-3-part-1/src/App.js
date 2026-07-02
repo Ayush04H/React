@@ -136,31 +136,91 @@ function Gamelist() {
 
 function GameCard({ data }) {
   return (
-    <div className="card">
+    <div
+      className={`card ${data.playTime < 100 ? "low-playtime" : ""} ${data.completed ? "completed" : ""}`}
+    >
       <GameCover cover={data.cover} alt={data.title} />
-      <GameInfo
-        achievements={data.achievements}
-        title={data.title}
-        installed={data.installed}
-        developer={data.developer}
-        releaseYear={data.releaseYear}
-      />
+      <GameInfo data={data} />
     </div>
   );
 }
 
-function GameInfo({ achievements, title, installed, developer, releaseYear }) {
+function GameInfo({ data }) {
+  function playtime(playTime) {
+    if (playTime < 50) {
+      return "😴";
+    } else if (playTime > 50 && playTime <= 100) {
+      return "🙂";
+    } else if (playTime > 100 && playTime <= 200) {
+      return "🔥";
+    } else {
+      return "👑";
+    }
+  }
   return (
     <div className="info">
-      <span className={`status ${installed ? "installed" : "not-installed"}`}>
-        {installed ? "Installed" : "Not Installed"}
+      <span
+        className={`status ${data.installed ? "installed" : "not-installed"}`}
+      >
+        {data.installed ? "Installed" : "Not Installed"}
       </span>
-      <h2>{title}</h2>
-      <div>Developed By : {developer}</div>
-      <div>Release Year : {releaseYear}</div>
+      <h2>
+        {data.title} {data.favorite ? "⭐🌟" : ""}
+      </h2>
+      <div>Developed By : {data.developer}</div>
+      <div>Release Year : {data.releaseYear}</div>
       <div>
-        Levels Cleared : {achievements.unlocked} / {achievements.total}
+        Levels Cleared : {data.achievements.unlocked} /{" "}
+        {data.achievements.total}{" "}
+        {data.achievements.unlocked === data.achievements.total &&
+          "🏆 Perfect Game"}
       </div>
+      <div>
+        Played {data.playTime} hrs {playtime(data.playTime)}
+      </div>
+      <div>
+        <GenreList genres={data.genres} />
+      </div>
+      <div>
+        <PlatformList platform={data.platforms} />
+      </div>
+    </div>
+  );
+}
+
+function GenreList({ genres }) {
+  console.log(genres);
+  return (
+    <div className="genre-list">
+      {genres.map((data) => (
+        <Genre data={data} />
+      ))}
+    </div>
+  );
+}
+
+function Genre({ data }) {
+  return (
+    <div style={{ background: data.color }} className="genre">
+      {data.name}
+    </div>
+  );
+}
+
+function PlatformList({ platform }) {
+  return (
+    <div className="platform-list">
+      {platform.map((data) => (
+        <Platform data={data} />
+      ))}
+    </div>
+  );
+}
+
+function Platform({ data }) {
+  return (
+    <div className="platform">
+      {data.name} {data.icon}
     </div>
   );
 }
@@ -168,4 +228,5 @@ function GameInfo({ achievements, title, installed, developer, releaseYear }) {
 function GameCover({ cover, alt }) {
   return <img src={cover} alt={alt} className="cover"></img>;
 }
+
 export default App;
