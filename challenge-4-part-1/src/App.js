@@ -125,7 +125,7 @@ function SeriesList() {
 
 function SeriesCard({ data }) {
   return (
-    <div className="card">
+    <div className={`card ${!data.myList ? "low-interest" : ""}`}>
       <Poster poster={data.poster} title={data.title} />
       <SeriesInfo data={data} key={data.title} />
     </div>
@@ -137,6 +137,17 @@ function Poster({ poster, title }) {
 }
 
 function SeriesInfo({ data }) {
+  function ratingcolor(rating) {
+    if (rating > 9) {
+      return "gold";
+    } else if (rating >= 8) {
+      return "green";
+    } else if (rating >= 7) {
+      return "orange";
+    } else {
+      return "red";
+    }
+  }
   return (
     <div className="info">
       <h2>{data.title}</h2>
@@ -146,57 +157,100 @@ function SeriesInfo({ data }) {
       <GenreList genreslist={data.genres} />
       <CastList castlist={data.cast} />
       <LanguageList languagelist={data.languages} />
-      <p className="rating">Rating {data.rating}</p>
+      <Progress progress={data.watchedEpisodes} total={data.episodes} />
+      <div className="badge-container">
+        <StatusBadge finished={data.finished} />
+        <NetflixOriginal netflixOriginal={data.netflixOriginal} />
+        <MyList myList={data.myList} />
+      </div>
+      <p className={`rating ${ratingcolor(data.rating)}`}>
+        ⭐ {data.rating} {data.rating > 9 ? "🔥 Masterpiece" : ""}
+      </p>
     </div>
   );
 }
 
 function GenreList({ genreslist }) {
   return (
-    <div className="genre-list">
+    <ul className="genre-list">
       {genreslist.map((genre) => (
         <Genre genre={genre} key={genre.name} />
       ))}
-    </div>
+    </ul>
   );
 }
 
 function Genre({ genre }) {
   return (
-    <div className="genre" style={{ background: genre.color }}>
+    <li className="genre" style={{ background: genre.color }}>
       {genre.name}
-    </div>
+    </li>
   );
 }
 
 function CastList({ castlist }) {
   return (
-    <div className="cast-list">
+    <ul className="cast-list">
       {castlist.map((cast) => (
-        <Cast cast={cast} />
+        <Cast cast={cast} key={cast} />
       ))}
-    </div>
+    </ul>
   );
 }
 
 function Cast({ cast }) {
-  return <div className="cast">{cast}</div>;
+  return <li className="cast">{cast}</li>;
 }
 
 function LanguageList({ languagelist }) {
   return (
-    <div className="language-list">
+    <ul className="language-list">
       {languagelist.map((language) => (
         <Language language={language} key={language.language} />
       ))}
-    </div>
+    </ul>
   );
 }
 
 function Language({ language }) {
   return (
-    <div className="language">
+    <li className="language">
       {language.icon} {language.language}
+    </li>
+  );
+}
+
+function Progress({ progress, total }) {
+  return (
+    <p>
+      Episode Watched {progress}/{total}{" "}
+      {progress === total ? "🏆 Fully Watched" : ""}
+    </p>
+  );
+}
+
+function StatusBadge({ finished }) {
+  return (
+    <div
+      className={`badge ${finished ? "green completed" : "orange watching"}`}
+    >
+      {finished ? "Completed" : "Watching"}
+    </div>
+  );
+}
+
+function NetflixOriginal({ netflixOriginal }) {
+  return (
+    <div className={`${netflixOriginal ? "badge red bgcolor" : ""}`}>
+      {netflixOriginal ? "netflixOriginal" : ""}
+    </div>
+  );
+}
+
+function MyList({ myList }) {
+  return (
+    <div className={`${myList ? "mylist badge" : ""}`}>
+      {myList ? "❤️ In My List" : ""}
     </div>
   );
 }

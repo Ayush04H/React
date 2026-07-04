@@ -1,32 +1,62 @@
+/* ---------- Global ---------- */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
   background: #141414;
-  font-family: Arial;
   color: white;
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.5;
 }
+
+/* ---------- App ---------- */
+
+.netflix {
+  min-height: 100vh;
+}
+
+.netflix h1 {
+  color: #e50914;
+  text-align: center;
+  font-size: clamp(2rem, 5vw, 3rem);
+  letter-spacing: 4px;
+  padding: 2rem 1rem;
+}
+
+/* ---------- Cards Container ---------- */
 
 .container {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 35px;
-  padding: 40px;
+  gap: 2rem;
+  padding: 2rem;
 }
+
+/* ---------- Card ---------- */
 
 .card {
   width: 340px;
   background: #1e1e1e;
   border-radius: 18px;
   overflow: hidden;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.45);
+  flex: 1 1 320px;
+  max-width: 340px;
+  min-width: 280px;
+
   transition:
     transform 0.35s ease,
     box-shadow 0.35s ease,
     filter 0.35s ease;
-  cursor: pointer;
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.45);
 }
 
 .card:hover {
-  transform: translateY(-12px) scale(1.05);
+  transform: translateY(-10px) scale(1.03);
   box-shadow: 0 25px 60px rgba(229, 9, 20, 0.35);
 }
 
@@ -40,6 +70,16 @@ body {
   padding: 20px;
 }
 
+.info h2 {
+  margin-bottom: 10px;
+}
+
+.info p {
+  margin: 10px 0;
+}
+
+/* ---------- Lists ---------- */
+
 .genre-list,
 .cast-list,
 .language-list {
@@ -47,57 +87,65 @@ body {
   flex-wrap: wrap;
   gap: 8px;
   list-style: none;
-  margin-top: 14px;
+  margin: 15px 0;
 }
 
 .genre,
-.language,
-.cast {
-  padding: 5px 12px;
-  border-radius: 30px;
+.cast,
+.language {
   background: #333;
+  border-radius: 999px;
+  padding: 6px 14px;
+}
+
+/* ---------- Badges ---------- */
+
+.badge-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 18px 0;
 }
 
 .badge {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
   padding: 6px 14px;
-  border-radius: 30px;
+  border-radius: 999px;
   font-size: 13px;
   font-weight: bold;
-}
-
-.netflix {
-  min-height: 100vh;
-}
-
-.netflix h1 {
-  color: #e50914;
-  font-size: 48px;
-  text-align: center;
-  padding: 30px;
-  letter-spacing: 4px;
 }
 
 .mylist {
   background: #10b981;
 }
 
+.bgcolor {
+  background: #352a2a;
+  border: 3px solid rgb(206, 72, 19);
+}
+
+.watching {
+  background: #352a2a;
+  border: 3px solid rgb(142, 111, 58);
+}
+
 .completed {
   border: 3px solid gold;
 }
 
-.low-interest {
-  opacity: 0.45;
-  filter: grayscale(100%);
-}
+/* ---------- Rating ---------- */
 
 .rating {
-  font-size: 22px;
+  margin-top: 18px;
+  font-size: 24px;
   font-weight: bold;
 }
 
 .gold {
-  color: #ffd700;
+  color: gold;
 }
 
 .green {
@@ -110,4 +158,95 @@ body {
 
 .red {
   color: #ef4444;
+}
+
+/* ---------- Low Interest ---------- */
+
+.low-interest {
+  opacity: 0.45;
+  filter: grayscale(100%);
+}
+
+/* ================================================= */
+/*               RESPONSIVE DESIGN                   */
+/* ================================================= */
+
+/* Large Tablets */
+
+@media (max-width: 1024px) {
+  .container {
+    gap: 1.5rem;
+    padding: 1.5rem;
+  }
+
+  .card {
+    width: 300px;
+  }
+
+  .poster {
+    height: 440px;
+  }
+}
+
+/* Tablets */
+
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
+  }
+
+  .card {
+    width: 90%;
+    max-width: 420px;
+  }
+
+  .poster {
+    height: 420px;
+  }
+
+  .info {
+    padding: 18px;
+  }
+}
+
+/* Mobile */
+
+@media (max-width: 480px) {
+  .netflix h1 {
+    font-size: 2rem;
+    letter-spacing: 2px;
+  }
+
+  .container {
+    padding: 0.75rem;
+    gap: 1.25rem;
+  }
+
+  .card {
+    width: 100%;
+  }
+
+  .poster {
+    height: 360px;
+  }
+
+  .info {
+    padding: 15px;
+  }
+
+  .genre,
+  .cast,
+  .language {
+    font-size: 13px;
+    padding: 5px 10px;
+  }
+
+  .badge {
+    font-size: 12px;
+    padding: 5px 12px;
+  }
+
+  .rating {
+    font-size: 22px;
+  }
 }
