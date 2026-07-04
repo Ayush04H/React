@@ -1,8 +1,14 @@
 import { useState } from "react";
 import "./App.css";
-
+const moods = [
+  "😴 Sleep Time",
+  "😊 Feeling Good",
+  "🤩 Super Excited",
+  "🥳 Party Time",
+  "😎 Vacation Mode",
+  "📚 Study Mode",
+];
 function App() {
-  const moods = ["😴 Sleep Time", "😊 Feeling Good", "🤩 Super Excited"];
   const [step, setStep] = useState(1);
   const [isOpen, setIsOpen] = useState(true);
 
@@ -11,7 +17,7 @@ function App() {
   }
 
   function handleNext() {
-    setStep((s) => (s < 3 ? s + 1 : s));
+    setStep((s) => (s < moods.length ? s + 1 : s));
   }
 
   function handleOpen() {
@@ -19,7 +25,7 @@ function App() {
   }
   return (
     <>
-      <Open handleOpen={handleOpen} />
+      <Open handleOpen={handleOpen} isOpen={isOpen} />
       {isOpen && (
         <Card
           step={step}
@@ -32,10 +38,10 @@ function App() {
   );
 }
 
-function Open({ handleOpen }) {
+function Open({ handleOpen, isOpen }) {
   return (
     <button className="close" onClick={handleOpen}>
-      ❌
+      {isOpen ? "❌" : "➕"}
     </button>
   );
 }
@@ -43,7 +49,7 @@ function Open({ handleOpen }) {
 function Card({ step, message, handleNext, handlePrev }) {
   return (
     <div className="steps">
-      <Numbers step={step} />
+      <Numbers step={step} totalSteps={moods.length} />
       <Message message={message} step={step} />
       <div className="buttons">
         <Previous handlePrev={handlePrev} />
@@ -53,12 +59,14 @@ function Card({ step, message, handleNext, handlePrev }) {
   );
 }
 
-function Numbers({ step }) {
+function Numbers({ step, totalSteps }) {
   return (
     <div className="numbers">
-      <div className={`${step >= 1 ? "active" : ""}`}>1</div>
-      <div className={`${step >= 2 ? "active" : ""}`}>2</div>
-      <div className={`${step >= 3 ? "active" : ""}`}>3</div>
+      {Array.from({ length: totalSteps }).map((_, index) => (
+        <div key={index} className={step >= index + 1 ? "active" : ""}>
+          {index + 1}
+        </div>
+      ))}
     </div>
   );
 }
