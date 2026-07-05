@@ -91,22 +91,49 @@ const tasks = [
 ];
 function App() {
   const [step, setstep] = useState(1);
+  const [isOpen, setIsOpen] = useState(true);
   function handlePrev() {
     setstep((s) => (s > 1 ? s - 1 : s));
   }
   function handleNext() {
     setstep((s) => (s < tasks.length ? s + 1 : s));
   }
+  function handleToggle() {
+    setIsOpen((s) => !s);
+  }
+
+  function handleReset() {
+    setstep((s) => 1);
+  }
   return (
     <div className="dashboard">
+      <Reset handleReset={handleReset} />
       <h2>Productivity Dashboard</h2>
-      <TaskBoard
-        tasks={tasks}
-        step={step}
-        handleNext={handleNext}
-        handlePrev={handlePrev}
-      />
+      <ToggleButton handleToggle={handleToggle} isOpen={isOpen} />
+      {isOpen && (
+        <TaskBoard
+          tasks={tasks}
+          step={step}
+          handleNext={handleNext}
+          handlePrev={handlePrev}
+        />
+      )}
     </div>
+  );
+}
+
+function Reset({ handleReset }) {
+  return (
+    <button onClick={handleReset} className="reset-btn">
+      🔄
+    </button>
+  );
+}
+function ToggleButton({ handleToggle, isOpen }) {
+  return (
+    <button onClick={handleToggle} className="toggleeffect">
+      {isOpen ? "❌" : "➕"}
+    </button>
   );
 }
 
@@ -116,6 +143,7 @@ function TaskBoard({ tasks, step, handleNext, handlePrev }) {
       <ProgressBar step={step} total={tasks.length} />
       <TaskList tasks={tasks} step={step} />
       <Controls handleNext={handleNext} handlePrev={handlePrev} />
+      <FooterStats step={step} len={tasks.length} />
     </div>
   );
 }
@@ -133,7 +161,7 @@ function TaskList({ tasks, step }) {
   const task = tasks[step - 1];
   return (
     <div className="task-list">
-      <TaskCard task={task} />
+      <TaskCard task={task} step={step} />
     </div>
   );
 }
@@ -163,19 +191,117 @@ function Next({ handleNext }) {
   );
 }
 
-function TaskCard({ task }) {
+function TaskCard({ task, step }) {
   return (
-    <div className="card">
+    <div
+      className={`card ${task.priority === "High" ? "high-priority" : ""} ${task.completed ? "completed" : ""}`}
+    >
       <TaskInfo task={task} />
+      <TaskCounter step={step} len={tasks.length} />
+      <TagList taglist={task.tags} />
+      <Status status={task.completed} />
+      <Priority priority={task.priority} />
     </div>
   );
 }
 
+function starcalculator(completion) {
+  if (completion === 100) {
+    return "⭐⭐⭐⭐⭐";
+  } else if (completion >= 75) {
+    return "⭐⭐⭐⭐";
+  } else if (completion >= 50) {
+    return "⭐⭐⭐";
+  } else if (completion >= 25) {
+    return "⭐⭐";
+  } else {
+    return "⭐";
+  }
+}
+
 function TaskInfo({ task }) {
+  const completion = (task.spentHours / task.estimatedHours) * 100;
   return (
     <div className="task-info">
       <h3>{task.title}</h3>
+      <p>{task.description}</p>
+      <p>
+        Spent {task.spentHours}/{task.estimatedHours} hrs
+      </p>
+      <p>{task.spentHours === task.estimatedHours && "🏆 Finished Early"}</p>
+      <p>{starcalculator(completion)}</p>
     </div>
+  );
+}
+
+function TagList({ taglist }) {
+  return taglist.map((tag) => (
+    <div className="tags">
+      <Tag tag={tag} />
+    </div>
+  ));
+}
+
+function Tag({ tag }) {
+  return (
+    <div className="tag" style={{ background: tag.color }}>
+      {tag.name}
+    </div>
+  );
+}
+
+function prioritybadge(priority) {
+  if (priority === "High") {
+    return "🔴 High";
+  } else if (priority === "Medium") {
+    return "🟡 Medium";
+  } else {
+    return "🟢 Low";
+  }
+}
+
+function priorityclass(priority) {
+  if (priority === "High") {
+    return "high";
+  } else if (priority === "Medium") {
+    return "medium";
+  } else {
+    return "low";
+  }
+}
+
+function Priority({ priority }) {
+  return (
+    <div className={`badge ${priorityclass(priority)}`}>
+      {prioritybadge(priority)}
+    </div>
+  );
+}
+
+function Status({ status }) {
+  return (
+    <div
+      className={`status ${status ? "status-completed" : "status-progress"}`}
+    >
+      {status ? "✅ Completed" : "⌛ In Progress"}
+    </div>
+  );
+}
+
+function TaskCounter({ step, len }) {
+  return (
+    <p>
+      Step {step}/{len}
+    </p>
+  );
+}
+
+function FooterStats({ step, len }) {
+  return (
+    <footer className="footer-stats">
+      <p>Total Task {len}</p> <p>Completed {step} </p>
+      <p>Remaining {len - step}</p>
+    </footer>
   );
 }
 
