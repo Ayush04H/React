@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { use, useState } from "react";
 import "./App.css";
 const initialItems = [
   { id: 1, description: "Passports", quantity: 2, packed: false },
@@ -31,11 +31,15 @@ function App() {
 }
 
 function Main() {
+  const [items, setItems] = useState([]);
+  function handleAddItems(item) {
+    setItems((items) => [...items, item]);
+  }
   return (
     <div>
       <Logo />
-      <Form />
-      <PackingList />
+      <Form handleAddItems={handleAddItems} />
+      <PackingList items={items} />
       <Stats />
     </div>
   );
@@ -45,7 +49,7 @@ function Logo() {
   return <h1>🌴 Far Away 🌴</h1>;
 }
 
-function Form() {
+function Form({ handleAddItems }) {
   //Piece of State Step 1
   //Use element in the component
   //Update teh state variable
@@ -56,6 +60,10 @@ function Form() {
     e.preventDefault();
     if (!description) return;
     const newItem = { description, quantity, packed: false, id: Date.now() };
+    console.log(newItem);
+    handleAddItems(newItem);
+    setDescription("");
+    setQuantity(1);
   }
   return (
     <form className="add-form" onSubmit={handleSubmit}>
@@ -80,11 +88,11 @@ function Form() {
     </form>
   );
 }
-function PackingList() {
+function PackingList({ items }) {
   return (
     <div className="list">
       <ul>
-        {initialItems.map((item) => (
+        {items.map((item) => (
           <Item item={item} key={item.id} />
         ))}
       </ul>
