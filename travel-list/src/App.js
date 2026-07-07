@@ -117,6 +117,14 @@ function PackingList({ items, handleDeleteItem, handleToggleItem }) {
           />
         ))}
       </ul>
+
+      <div className="actions">
+        <select>
+          <option values="input">Sort by Input Order</option>
+          <option values="desciption">Sort by Description</option>
+          <option values="packed">Sort by Packed Status</option>
+        </select>
+      </div>
     </div>
   );
 }
