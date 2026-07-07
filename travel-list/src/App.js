@@ -47,6 +47,11 @@ function Main() {
       ),
     );
   }
+
+  function handleClearList() {
+    const confirmed = window.confirm("Delete ?");
+    if (confirmed) setItems([]);
+  }
   return (
     <div>
       <Logo />
@@ -55,6 +60,7 @@ function Main() {
         items={items}
         handleDeleteItem={handleDeleteItem}
         handleToggleItem={handleToggleItem}
+        handleClearList={handleClearList}
       />
       <Stats items={items} />
     </div>
@@ -104,11 +110,30 @@ function Form({ handleAddItems }) {
     </form>
   );
 }
-function PackingList({ items, handleDeleteItem, handleToggleItem }) {
+function PackingList({
+  items,
+  handleDeleteItem,
+  handleToggleItem,
+  handleClearList,
+}) {
+  const [sortBy, setSortBy] = useState("input");
+
+  let sorteddItems;
+  if (sortBy === "input") sorteddItems = items;
+  if (sortBy === "description")
+    sorteddItems = items
+      .slice()
+      .sort((a, b) => a.description.localeCompare(b.description));
+
+  if (sortBy === "packed")
+    sorteddItems = items
+      .slice()
+      .sort((a, b) => Number(a.packed) - Number(b.packed));
+
   return (
     <div className="list">
       <ul>
-        {items.map((item) => (
+        {sorteddItems.map((item) => (
           <Item
             item={item}
             key={item.id}
@@ -119,12 +144,14 @@ function PackingList({ items, handleDeleteItem, handleToggleItem }) {
       </ul>
 
       <div className="actions">
-        <select>
-          <option values="input">Sort by Input Order</option>
-          <option values="desciption">Sort by Description</option>
-          <option values="packed">Sort by Packed Status</option>
+        <select value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
+          <option value="input">Sort by Input Order</option>
+          <option value="description">Sort by Description</option>
+          <option value="packed">Sort by Packed Status</option>
         </select>
       </div>
+
+      <button onClick={handleClearList}>Clear List</button>
     </div>
   );
 }
