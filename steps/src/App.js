@@ -6,6 +6,7 @@ const messages = [
   "Invest your new income 🤑",
 ];
 function App() {
+  //New phase more on Child and Parent Relationship
   const [step, setstep] = useState(1);
   const [isOpen, setisOpen] = useState(true);
 
