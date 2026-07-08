@@ -40,22 +40,36 @@ function App() {
             Step {step} :{messages[step - 1]}
           </p>
           <div className="buttons">
-            <button
-              style={{ backgroundColor: "#7950f2", color: "#ffffff" }}
+            <Button
+              textColor="#ffffff"
+              bgColor="#7950f2"
               onClick={handlerPrevious}
-            >
-              Previous
-            </button>
-            <button
-              style={{ backgroundColor: "#7950f2", color: "#ffffff" }}
+              text="previous"
+              emoji="⬅️"
+            />
+            <Button
+              textColor="#ffffff"
+              bgColor="#7950f2"
               onClick={handlerNext}
-            >
-              Next
-            </button>
+              text="next"
+              emoji="➡️"
+            />
           </div>
         </div>
       )}
     </>
+  );
+}
+
+function Button({ textColor, bgColor, onClick, text, emoji }) {
+  return (
+    <button
+      style={{ backgroundColor: bgColor, color: textColor }}
+      onClick={onClick}
+    >
+      <span>{emoji}</span>
+      {text}
+    </button>
   );
 }
 
