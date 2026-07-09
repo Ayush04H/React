@@ -1,0 +1,209 @@
+/* ---------- RESET ---------- */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  background: #0f172a;
+  color: white;
+}
+
+/* ---------- APP ---------- */
+
+.dashboard {
+  max-width: 1100px;
+  margin: auto;
+  padding: 40px 20px;
+}
+
+/* ---------- TITLE ---------- */
+
+.dashboard h1 {
+  text-align: center;
+  color: #38bdf8;
+  margin-bottom: 30px;
+  letter-spacing: 2px;
+}
+
+/* ---------- CARD ---------- */
+
+.card {
+  background: #1e293b;
+  border-radius: 20px;
+  overflow: hidden;
+  width: 420px;
+  margin: auto;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.4);
+  transition: 0.35s;
+}
+
+.card:hover {
+  transform: translateY(-10px) scale(1.03);
+}
+
+.completed {
+  border: 4px solid gold;
+}
+
+.not-booked {
+  opacity: 0.55;
+}
+
+.over-budget {
+  border: 4px solid #ef4444;
+}
+
+.image {
+  width: 100%;
+  height: 320px;
+  object-fit: cover;
+  transition: 0.4s;
+}
+
+.card:hover .image {
+  transform: scale(1.08);
+}
+
+.info {
+  padding: 24px;
+}
+
+.info h2 {
+  margin-bottom: 12px;
+}
+
+.info p {
+  margin: 8px 0;
+}
+
+/* ---------- LISTS ---------- */
+
+.activity-list,
+.hotel-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 18px 0;
+}
+
+.activity {
+  padding: 7px 14px;
+  border-radius: 999px;
+  color: white;
+  font-size: 13px;
+}
+
+.hotel {
+  background: #334155;
+  padding: 7px 14px;
+  border-radius: 999px;
+}
+
+/* ---------- BADGES ---------- */
+
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.badge {
+  padding: 7px 15px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.booked {
+  background: #22c55e;
+}
+
+.favorite {
+  background: #ec4899;
+}
+
+.visa {
+  background: #2563eb;
+}
+
+.completed-badge {
+  background: #f59e0b;
+}
+
+/* ---------- PROGRESS ---------- */
+
+.progress {
+  height: 12px;
+  background: #334155;
+  border-radius: 999px;
+  overflow: hidden;
+  margin: 35px 0;
+}
+
+.progress-fill {
+  height: 100%;
+  background: #38bdf8;
+  transition: 0.5s;
+}
+
+/* ---------- CONTROLS ---------- */
+
+.controls {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 35px;
+}
+
+button {
+  padding: 12px 22px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  background: #2563eb;
+  color: white;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+button:hover {
+  transform: translateY(-3px);
+}
+
+/* ---------- FOOTER ---------- */
+
+.footer {
+  display: flex;
+  justify-content: space-around;
+  background: #1e293b;
+  margin-top: 35px;
+  padding: 20px;
+  border-radius: 16px;
+}
+
+/* ---------- RESPONSIVE ---------- */
+
+@media (max-width: 768px) {
+  .card {
+    width: 100%;
+  }
+
+  .controls {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  button {
+    width: 100%;
+  }
+
+  .footer {
+    flex-direction: column;
+    gap: 15px;
+    text-align: center;
+  }
+}
