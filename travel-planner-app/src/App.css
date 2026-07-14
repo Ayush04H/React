@@ -152,6 +152,26 @@ body {
   transition: 0.5s;
 }
 
+.progress-wrapper {
+  width: 420px;
+  margin: 30px auto;
+}
+
+.progress-text {
+  text-align: center;
+  font-size: 18px;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.progress-percent {
+  text-align: center;
+  margin-top: 10px;
+  color: #38bdf8;
+  font-weight: bold;
+  font-size: 20px;
+}
+
 /* ---------- CONTROLS ---------- */
 
 .controls {
