@@ -108,14 +108,22 @@ body {
   flex: 1;
   min-width: 320px;
   max-width: 45rem;
-  background: var(--color-background-500);
+
+  background-color: var(--color-background-500);
   border-radius: 0.9rem;
+
   position: relative;
+
+  height: 80vh; /* Keeps panel visible */
   overflow-y: auto;
   overflow-x: hidden;
-  max-height: calc(100vh - 13rem);
-}
 
+  display: flex; /* NEW */
+  flex-direction: column;
+}
+.box:has(.btn-toggle) {
+  padding-top: 4rem;
+}
 .loader,
 .error {
   padding: 4rem;
@@ -353,8 +361,10 @@ body {
   }
 
   .main {
-    flex-direction: column;
-    align-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    gap: 2rem;
   }
 
   .box {
