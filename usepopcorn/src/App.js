@@ -63,10 +63,10 @@ export default function App() {
         <NavResults movies={movies} />
       </Navbar>
       <Main>
-        <Listbox>
+        <Box>
           <MovieList movies={movies} />
-        </Listbox>
-        <Watchedbox>
+        </Box>
+        <Box>
           <WatchedBoxSummary
             watched={watched}
             avgUserRating={avgUserRating}
@@ -74,7 +74,7 @@ export default function App() {
             avgImdbRating={avgImdbRating}
           />
           <WatchedMoviesList watched={watched} />
-        </Watchedbox>
+        </Box>
       </Main>
     </>
   );
@@ -120,22 +120,38 @@ function Main({ children }) {
   return <main className="main">{children}</main>;
 }
 
-function Listbox({ children }) {
-  const [isOpen1, setIsOpen1] = useState(true);
+function Box({ children }) {
+  const [isOpen, setIsOpen] = useState(true);
   return (
     <div className="box">
       <button
         className="btn-toggle"
         onClick={() => {
-          setIsOpen1((open) => !open);
+          setIsOpen((open) => !open);
         }}
       >
-        {isOpen1 ? "–" : "+"}
+        {isOpen ? "–" : "+"}
       </button>
-      {isOpen1 && children}
+      {isOpen && children}
     </div>
   );
 }
+
+// function Watchedbox({ children }) {
+//   const [isOpen2, setIsOpen2] = useState(true);
+
+//   return (
+//     <div className="box">
+//       <button
+//         className="btn-toggle"
+//         onClick={() => setIsOpen2((open) => !open)}
+//       >
+//         {isOpen2 ? "–" : "+"}
+//       </button>
+//       {isOpen2 && <>{children}</>}
+//     </div>
+//   );
+// }
 
 function MovieList({ movies }) {
   return (
@@ -159,22 +175,6 @@ function Movie({ movie }) {
         </p>
       </div>
     </li>
-  );
-}
-
-function Watchedbox({ children }) {
-  const [isOpen2, setIsOpen2] = useState(true);
-
-  return (
-    <div className="box">
-      <button
-        className="btn-toggle"
-        onClick={() => setIsOpen2((open) => !open)}
-      >
-        {isOpen2 ? "–" : "+"}
-      </button>
-      {isOpen2 && <>{children}</>}
-    </div>
   );
 }
 
