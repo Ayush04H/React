@@ -54,7 +54,13 @@ export default function App() {
 
   return (
     <>
-      <Navbar movies={movies} />
+      <Navbar>
+        <nav className="nav-bar">
+          <NavBarLogo />
+          <NavSearchBar />
+          <NavResults movies={movies} />
+        </nav>
+      </Navbar>
       <Main watched={watched} movies={movies} />
     </>
   );
@@ -63,15 +69,8 @@ export default function App() {
 const average = (arr) =>
   arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
 
-function Navbar({ movies }) {
-  const [query, setQuery] = useState("");
-  return (
-    <nav className="nav-bar">
-      <NavBarLogo />
-      <NavSearchBar query={query} setQuery={setQuery} />
-      <NavResults movies={movies} />
-    </nav>
-  );
+function Navbar({ children }) {
+  return children;
 }
 
 function NavBarLogo() {
@@ -83,7 +82,8 @@ function NavBarLogo() {
   );
 }
 
-function NavSearchBar({ query, setQuery }) {
+function NavSearchBar() {
+  const [query, setQuery] = useState("");
   return (
     <input
       className="search"
