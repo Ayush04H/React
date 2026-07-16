@@ -51,6 +51,9 @@ const tempWatchedData = [
 export default function App() {
   const [movies, setMovies] = useState(tempMovieData);
   const [watched, setWatched] = useState(tempWatchedData);
+  const avgImdbRating = average(watched.map((movie) => movie.imdbRating));
+  const avgUserRating = average(watched.map((movie) => movie.userRating));
+  const avgRuntime = average(watched.map((movie) => movie.runtime));
 
   return (
     <>
@@ -63,7 +66,15 @@ export default function App() {
         <Listbox>
           <MovieList movies={movies} />
         </Listbox>
-        <Watchedbox watched={watched} />
+        <Watchedbox>
+          <WatchedBoxSummary
+            watched={watched}
+            avgUserRating={avgUserRating}
+            avgRuntime={avgRuntime}
+            avgImdbRating={avgImdbRating}
+          />
+          <WatchedMoviesList watched={watched} />
+        </Watchedbox>
       </Main>
     </>
   );
@@ -151,12 +162,8 @@ function Movie({ movie }) {
   );
 }
 
-function Watchedbox({ watched }) {
+function Watchedbox({ children }) {
   const [isOpen2, setIsOpen2] = useState(true);
-
-  const avgImdbRating = average(watched.map((movie) => movie.imdbRating));
-  const avgUserRating = average(watched.map((movie) => movie.userRating));
-  const avgRuntime = average(watched.map((movie) => movie.runtime));
 
   return (
     <div className="box">
@@ -166,17 +173,7 @@ function Watchedbox({ watched }) {
       >
         {isOpen2 ? "–" : "+"}
       </button>
-      {isOpen2 && (
-        <>
-          <WatchedBoxSummary
-            watched={watched}
-            avgUserRating={avgUserRating}
-            avgRuntime={avgRuntime}
-            avgImdbRating={avgImdbRating}
-          />
-          <WatchedMoviesList watched={watched} />
-        </>
-      )}
+      {isOpen2 && <>{children}</>}
     </div>
   );
 }
