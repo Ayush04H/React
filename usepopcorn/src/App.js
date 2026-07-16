@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./index.css";
 
+//Temp Movie Data
 const tempMovieData = [
   {
     imdbID: "tt1375666",
@@ -24,7 +25,7 @@ const tempMovieData = [
       "https://m.media-amazon.com/images/M/MV5BYWZjMjk3ZTItODQ2ZC00NTY5LWE0ZDYtZTI3MjcwN2Q5NTVkXkEyXkFqcGdeQXVyODk4OTc3MTY@._V1_SX300.jpg",
   },
 ];
-
+//Temp Watched Data
 const tempWatchedData = [
   {
     imdbID: "tt1375666",
@@ -53,7 +54,13 @@ export default function App() {
 
   return (
     <>
-      <Navbar movies={movies} />
+      <Navbar>
+        <nav className="nav-bar">
+          <NavBarLogo />
+          <NavSearchBar />
+          <NavResults movies={movies} />
+        </nav>
+      </Navbar>
       <Main watched={watched} movies={movies} />
     </>
   );
@@ -62,15 +69,8 @@ export default function App() {
 const average = (arr) =>
   arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
 
-function Navbar({ movies }) {
-  const [query, setQuery] = useState("");
-  return (
-    <nav className="nav-bar">
-      <NavBarLogo />
-      <NavSearchBar query={query} setQuery={setQuery} />
-      <NavResults movies={movies} />
-    </nav>
-  );
+function Navbar({ children }) {
+  return children;
 }
 
 function NavBarLogo() {
@@ -82,7 +82,8 @@ function NavBarLogo() {
   );
 }
 
-function NavSearchBar({ query, setQuery }) {
+function NavSearchBar() {
+  const [query, setQuery] = useState("");
   return (
     <input
       className="search"
