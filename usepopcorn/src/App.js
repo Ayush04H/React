@@ -55,13 +55,16 @@ export default function App() {
   return (
     <>
       <Navbar>
-        <nav className="nav-bar">
-          <NavBarLogo />
-          <NavSearchBar />
-          <NavResults movies={movies} />
-        </nav>
+        <NavBarLogo />
+        <NavSearchBar />
+        <NavResults movies={movies} />
       </Navbar>
-      <Main watched={watched} movies={movies} />
+      <Main>
+        <Listbox>
+          <MovieList movies={movies} />
+        </Listbox>
+        <Watchedbox watched={watched} />
+      </Main>
     </>
   );
 }
@@ -70,7 +73,7 @@ const average = (arr) =>
   arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
 
 function Navbar({ children }) {
-  return children;
+  return <nav className="nav-bar">{children}</nav>;
 }
 
 function NavBarLogo() {
@@ -102,16 +105,11 @@ function NavResults({ movies }) {
     </p>
   );
 }
-function Main({ watched, movies }) {
-  return (
-    <main className="main">
-      <Listbox movies={movies} />
-      <Watchedbox watched={watched} />
-    </main>
-  );
+function Main({ children }) {
+  return <main className="main">{children}</main>;
 }
 
-function Listbox({ movies }) {
+function Listbox({ children }) {
   const [isOpen1, setIsOpen1] = useState(true);
   return (
     <div className="box">
@@ -123,7 +121,7 @@ function Listbox({ movies }) {
       >
         {isOpen1 ? "–" : "+"}
       </button>
-      {isOpen1 && <MovieList movies={movies} />}
+      {isOpen1 && children}
     </div>
   );
 }
