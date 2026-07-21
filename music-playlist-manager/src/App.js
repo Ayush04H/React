@@ -2,6 +2,7 @@ import { useState } from "react";
 import "./App.css";
 import PlaylistCard from "./PlaylistCard";
 import Controls from "./Controls";
+import ProgressBar from "./Progress";
 const playlists = [
   {
     id: 1,
@@ -294,14 +295,14 @@ function App() {
   return (
     <div className="dashboard">
       <h1>Music PlayList Manager</h1>
-      <ProgressBar />
+      <ProgressBar current={step + 1} total={playlists.length} />
       <PlayListViewer step={step} />
       <Controls setstep={setstep} playlists={playlists} />
+      <Footer />
     </div>
   );
 }
 
-function ProgressBar() {}
 function PlayListViewer({ step }) {
   return (
     <div>
