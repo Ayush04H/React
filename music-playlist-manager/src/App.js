@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./App.css";
 import PlaylistCard from "./PlaylistCard";
+import Controls from "./Controls";
 const playlists = [
   {
     id: 1,
@@ -295,7 +296,7 @@ function App() {
       <h1>Music PlayList Manager</h1>
       <ProgressBar />
       <PlayListViewer step={step} />
-      <Controls setstep={setstep} />
+      <Controls setstep={setstep} playlists={playlists} />
     </div>
   );
 }
@@ -309,29 +310,4 @@ function PlayListViewer({ step }) {
   );
 }
 
-function Controls({ setstep }) {
-  function handleNext() {
-    setstep((s) => (playlists.length - 1 > s ? s + 1 : s));
-  }
-  function handlePrevious() {
-    setstep((s) => (s > 0 ? s - 1 : s));
-  }
-  function handleReset() {
-    setstep(0);
-  }
-  return (
-    <div className="controls">
-      <Button onClick={handlePrevious}>Previous</Button>
-      <Button onClick={handleReset}>Reset</Button>
-      <Button onClick={handleNext}>Next</Button>
-    </div>
-  );
-}
-function Button({ children, onClick }) {
-  return (
-    <button className="button" onClick={onClick}>
-      {children}
-    </button>
-  );
-}
 export default App;
