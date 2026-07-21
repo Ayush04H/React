@@ -21,8 +21,21 @@ function PlaylistInfo({ data }) {
         <div>Songs : {data.songs}</div>
         <div>Hours Played : {data.duration}</div>
         <StarRating maxRating={5} defaultRating={data.userRating} />
+        <StatusBadges duration={data.duration} />
       </p>
     </div>
   );
+}
+function StatusBadges({ duration }) {
+  function durationstatus(duration) {
+    if (duration >= 200) {
+      return "🔴 Long";
+    } else if (duration >= 100) {
+      return "🟡 Medium";
+    } else {
+      return "🟢 Short";
+    }
+  }
+  return <div className="badge">{durationstatus(duration)}</div>;
 }
 export default PlaylistCard;
