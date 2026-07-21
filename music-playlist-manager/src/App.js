@@ -271,7 +271,22 @@ const playlists = [
   },
 ];
 function App() {
-  return <div>Music PlayList Manager</div>;
+  return (
+    <div>
+      Music PlayList Manager
+      <ProgressBar />;
+      <PlayListViewer />;
+    </div>
+  );
 }
 
+function ProgressBar() {}
+function PlayListViewer() {
+  return (
+    <div>
+      <PlaylistCard />
+    </div>
+  );
+}
+function PlaylistCard() {}
 export default App;
