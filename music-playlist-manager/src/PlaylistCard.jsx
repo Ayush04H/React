@@ -1,0 +1,25 @@
+function PlaylistCard({ playlists, step }) {
+  const data = playlists[step];
+  return (
+    <div className="card">
+      <Image src={data.cover} alt={data.name} />
+      <PlaylistInfo data={data} />
+    </div>
+  );
+}
+function Image({ src, alt }) {
+  return <img src={src} alt={alt} className="cover"></img>;
+}
+function PlaylistInfo({ data }) {
+  return (
+    <div className="info">
+      <h2>{data.name}</h2>
+      <p>Creator : {data.creator}</p>
+      <p>
+        <div>Songs : {data.songs}</div>
+        <div>Hours Played : {data.duration}</div>
+      </p>
+    </div>
+  );
+}
+export default PlaylistCard;
