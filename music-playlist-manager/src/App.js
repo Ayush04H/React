@@ -1,10 +1,13 @@
+import { useState } from "react";
 import "./App.css";
+import PlaylistCard from "./PlaylistCard";
 const playlists = [
   {
     id: 1,
     name: "Workout Mix",
     creator: "Ayush",
-    cover: "High quality workout playlist cover",
+    cover:
+      "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=500&auto=format&fit=crop",
     songs: 48,
     duration: 172,
     liked: true,
@@ -22,7 +25,8 @@ const playlists = [
     id: 2,
     name: "Late Night Vibes",
     creator: "Spotify",
-    cover: "Night city neon playlist cover",
+    cover:
+      "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=500&auto=format&fit=crop",
     songs: 36,
     duration: 145,
     liked: true,
@@ -40,7 +44,8 @@ const playlists = [
     id: 3,
     name: "Road Trip",
     creator: "Rahul",
-    cover: "Mountain highway playlist cover",
+    cover:
+      "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=500&auto=format&fit=crop",
     songs: 62,
     duration: 230,
     liked: false,
@@ -58,7 +63,8 @@ const playlists = [
     id: 4,
     name: "Coding Sessions",
     creator: "Ayush",
-    cover: "Minimal coding desk playlist cover",
+    cover:
+      "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=500&auto=format&fit=crop",
     songs: 54,
     duration: 210,
     liked: true,
@@ -76,7 +82,8 @@ const playlists = [
     id: 5,
     name: "Party Hits",
     creator: "Spotify",
-    cover: "Colorful party lights playlist cover",
+    cover:
+      "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=500&auto=format&fit=crop",
     songs: 80,
     duration: 285,
     liked: true,
@@ -94,7 +101,8 @@ const playlists = [
     id: 6,
     name: "Sunday Morning",
     creator: "Emma",
-    cover: "Coffee mug and sunrise playlist cover",
+    cover:
+      "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=500&auto=format&fit=crop",
     songs: 27,
     duration: 95,
     liked: false,
@@ -112,7 +120,8 @@ const playlists = [
     id: 7,
     name: "Bollywood Beats",
     creator: "Arjun",
-    cover: "Bollywood music poster playlist cover",
+    cover:
+      "https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=500&auto=format&fit=crop",
     songs: 72,
     duration: 260,
     liked: true,
@@ -130,7 +139,8 @@ const playlists = [
     id: 8,
     name: "Classical Essentials",
     creator: "Spotify",
-    cover: "Classical orchestra playlist cover",
+    cover:
+      "https://images.unsplash.com/photo-1465847899084-d164df4dedc6?w=500&auto=format&fit=crop",
     songs: 42,
     duration: 190,
     liked: false,
@@ -148,7 +158,8 @@ const playlists = [
     id: 9,
     name: "Hip Hop Central",
     creator: "Alex",
-    cover: "Urban graffiti playlist cover",
+    cover:
+      "https://images.unsplash.com/photo-1501386761578-eac5c94b800a?w=500&auto=format&fit=crop",
     songs: 65,
     duration: 240,
     liked: true,
@@ -166,7 +177,8 @@ const playlists = [
     id: 10,
     name: "Rainy Day",
     creator: "Ayush",
-    cover: "Rain window playlist cover",
+    cover:
+      "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=500&auto=format&fit=crop",
     songs: 31,
     duration: 120,
     liked: false,
@@ -184,7 +196,8 @@ const playlists = [
     id: 11,
     name: "90s Throwback",
     creator: "Neha",
-    cover: "Retro cassette playlist cover",
+    cover:
+      "https://images.unsplash.com/photo-1516280440614-37939bbacd81?w=500&auto=format&fit=crop",
     songs: 58,
     duration: 205,
     liked: true,
@@ -202,7 +215,8 @@ const playlists = [
     id: 12,
     name: "Jazz Lounge",
     creator: "Spotify",
-    cover: "Elegant jazz club playlist cover",
+    cover:
+      "https://images.unsplash.com/photo-1511192336575-5a79af67a629?w=500&auto=format&fit=crop",
     songs: 38,
     duration: 155,
     liked: false,
@@ -220,7 +234,8 @@ const playlists = [
     id: 13,
     name: "Festival Anthems",
     creator: "DJ Max",
-    cover: "Festival crowd playlist cover",
+    cover:
+      "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=500&auto=format&fit=crop",
     songs: 70,
     duration: 275,
     liked: true,
@@ -238,7 +253,8 @@ const playlists = [
     id: 14,
     name: "Sleep Sounds",
     creator: "Nature",
-    cover: "Moon and forest playlist cover",
+    cover:
+      "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=500&auto=format&fit=crop",
     songs: 20,
     duration: 480,
     liked: false,
@@ -256,7 +272,8 @@ const playlists = [
     id: 15,
     name: "Top Hits 2026",
     creator: "Spotify",
-    cover: "Modern chart hits playlist cover",
+    cover:
+      "https://images.unsplash.com/photo-1516280440614-37939bbacd81?w=500&auto=format&fit=crop",
     songs: 50,
     duration: 180,
     liked: true,
@@ -271,22 +288,22 @@ const playlists = [
   },
 ];
 function App() {
+  const [step, setstep] = useState(0);
   return (
-    <div>
-      Music PlayList Manager
-      <ProgressBar />;
-      <PlayListViewer />;
+    <div className="dashboard">
+      <h1>Music PlayList Manager</h1>
+      <ProgressBar />
+      <PlayListViewer step={step} />
     </div>
   );
 }
 
 function ProgressBar() {}
-function PlayListViewer() {
+function PlayListViewer({ step }) {
   return (
     <div>
-      <PlaylistCard />
+      <PlaylistCard playlists={playlists} step={step} />
     </div>
   );
 }
-function PlaylistCard() {}
 export default App;
