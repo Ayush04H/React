@@ -1,3 +1,5 @@
+import StarRating from "./StartRating";
+
 function PlaylistCard({ playlists, step }) {
   const data = playlists[step];
   return (
@@ -18,6 +20,7 @@ function PlaylistInfo({ data }) {
       <p>
         <div>Songs : {data.songs}</div>
         <div>Hours Played : {data.duration}</div>
+        <StarRating maxRating={5} defaultRating={data.userRating} />
       </p>
     </div>
   );
