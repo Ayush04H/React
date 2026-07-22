@@ -3,6 +3,7 @@ import "./App.css";
 import PlaylistCard from "./PlaylistCard";
 import Controls from "./Controls";
 import ProgressBar from "./Progress";
+import Footer from "./Footer";
 const playlists = [
   {
     id: 1,
@@ -298,7 +299,7 @@ function App() {
       <ProgressBar current={step + 1} total={playlists.length} />
       <PlayListViewer step={step} />
       <Controls setstep={setstep} playlists={playlists} />
-      <Footer />
+      <Footer playlists={playlists} />
     </div>
   );
 }
