@@ -64,6 +64,7 @@ function TabContent({ item }) {
 
   function handleInc() {
     setLikes(likes + 1);
+    //
   }
 
   return (
