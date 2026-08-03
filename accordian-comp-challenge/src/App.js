@@ -8,11 +8,11 @@ const faqs = [
   },
   {
     title: "How long do I have to return my chair?",
-    text: "Pariatur recusandae dignissimos fuga voluptas unde optio nesciunt commodi beatae, explicabo natus.",
+    text: "Pariatur recusandae dignissimos fuga voluptas unde optio nesciunt commodi beatae, explicabo natus.Lorem ipsum dolor sit amet consectetur, adipisicing elit.",
   },
   {
     title: "Do you ship to countries outside the EU?",
-    text: "Excepturi velit laborum, perspiciatis nemo perferendis reiciendis aliquam possimus dolor sed! Dolore laborum ducimus veritatis facere molestias!",
+    text: "Excepturi velit laborum, perspiciatis nemo perferendis reiciendis aliquam possimus dolor sed! Dolore laborum ducimus veritatis facere molestias!.Lorem ipsum dolor sit amet consectetur, adipisicing elit..Lorem ipsum dolor sit amet consectetur, adipisicing elit.Lorem ipsum dolor sit amet consectetur, adipisicing elit.Lorem ipsum dolor sit amet consectetur, adipisicing elit.",
   },
 ];
 
