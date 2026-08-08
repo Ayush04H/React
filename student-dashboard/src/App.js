@@ -6,7 +6,7 @@ const initialStudents = [
   {
     id: 1,
 
-    name: "Ayush Kumar",
+    name: "Jhandu Kumar",
 
     avatar: "https://i.pravatar.cc/300?img=11",
 
