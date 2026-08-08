@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./App.css";
 import StudentViewer from "./StudentViewer";
+import Controls from "./Controls";
 const initialStudents = [
   {
     id: 1,
@@ -112,10 +113,15 @@ function App() {
 }
 function Dashboard() {
   const [curr, setcurr] = useState(1);
-  const current_student = initialStudents[curr];
+  const current_student = initialStudents[curr - 1];
   return (
     <div className="dashboard">
       <StudentViewer current_student={current_student} />
+      <Controls
+        setcurr={setcurr}
+        curr={curr}
+        initialStudents={initialStudents}
+      />
     </div>
   );
 }
