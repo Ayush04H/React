@@ -8,7 +8,7 @@ import AddStudentForm from "./AddStudentForm";
 const initialStudents = [
   {
     id: 1,
-    name: "Jhandu Kumar",
+    name: "Jhandu",
     avatar: "https://i.pravatar.cc/300?img=11",
     course: "React",
     instructor: "Jonas",
